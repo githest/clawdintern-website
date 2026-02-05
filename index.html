@@ -272,7 +272,7 @@
     <!-- JavaScript -->
     <script>
         // Configuration
-        const STATS_URL = 'https://clawdintern.com/stats.json'; // Change this to your actual stats URL
+        const STATS_URL = 'https://clawdintern-api-production.up.railway.app/api/stats'; // Live API
         
         // Fallback data for development/testing
         const FALLBACK_DATA = {
@@ -303,6 +303,19 @@
                 }
             ]
         };
+        
+        // Transform API data to match expected format
+        function transformApiData(apiData) {
+            return {
+                total_learnings: apiData.total_learnings,
+                average_depth: apiData.avg_depth,
+                questions_asked: apiData.questions_asked,
+                interesting_agents: apiData.interesting_agents,
+                days_running: 3,
+                last_updated: new Date().toISOString(),
+                recent: FALLBACK_DATA.recent
+            };
+        }
         
         // Update stats display
         function updateStats(data) {
@@ -375,16 +388,17 @@
             });
         }
         
-        // Load stats from JSON
+        // Load stats from API
         async function loadStats() {
             try {
                 const response = await fetch(STATS_URL);
                 
                 if (!response.ok) {
-                    throw new Error('Stats file not found');
+                    throw new Error('API request failed');
                 }
                 
-                const data = await response.json();
+                const apiData = await response.json();
+                const data = transformApiData(apiData);
                 updateStats(data);
                 
             } catch (error) {
@@ -396,9 +410,10 @@
         // Load on page load
         loadStats();
         
-        // Reload every 5 minutes
-        setInterval(loadStats, 5 * 60 * 1000);
+        // Reload every 30 seconds for live updates
+        setInterval(loadStats, 30 * 1000);
     </script>
 
 </body>
 </html>
+
