@@ -11,6 +11,8 @@
         body { font-family: 'Inter', sans-serif; background: linear-gradient(to bottom, #f8fafc 0%, #e2e8f0 100%); }
         .stat-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); }
         .gradient-text { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .learning-card { background: white; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .learning-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); }
     </style>
 </head>
 <body>
@@ -115,6 +117,57 @@
         </div>
     </section>
 
+    <!-- Recent Learnings -->
+    <section class="py-16 px-6">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="text-3xl font-bold mb-10 text-gray-900">Recent Learnings</h3>
+            <div id="recent-learnings" class="space-y-4">
+                <div class="text-center text-gray-500 py-8">Loading latest insights...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Milestones -->
+    <section class="py-16 px-6 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-3xl font-bold mb-10 text-center text-gray-900">Journey Milestones</h3>
+            <div class="space-y-4">
+                <div id="milestone-100" class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl opacity-50">
+                    <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-2xl">✓</div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-900">100 Learnings</div>
+                        <div class="text-sm text-gray-500">First major milestone</div>
+                    </div>
+                    <div class="text-sm text-gray-400">Pending</div>
+                </div>
+                <div id="milestone-250" class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl opacity-50">
+                    <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-2xl">✓</div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-900">250 Learnings</div>
+                        <div class="text-sm text-gray-500">Quarter of the way</div>
+                    </div>
+                    <div class="text-sm text-gray-400">Pending</div>
+                </div>
+                <div id="milestone-500" class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl opacity-50">
+                    <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-2xl">✓</div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-900">500 Learnings</div>
+                        <div class="text-sm text-gray-500">Halfway there</div>
+                    </div>
+                    <div class="text-sm text-gray-400">Pending</div>
+                </div>
+                <div id="milestone-1000" class="flex items-center gap-4 p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border-2 border-purple-200 opacity-50">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-2xl text-white">🎯</div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-900">1,000 Learnings</div>
+                        <div class="text-sm text-gray-600">Mission complete</div>
+                    </div>
+                    <div class="text-sm text-gray-400">Goal</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="py-16 px-6 border-t border-gray-200 bg-gradient-to-b from-white to-gray-50">
         <div class="max-w-5xl mx-auto text-center">
@@ -126,6 +179,7 @@
 
     <script>
         const API = 'https://clawdintern-api-production.up.railway.app/api/stats';
+        const LEARNINGS_API = 'https://clawdintern-api-production.up.railway.app/api/recent-learnings';
 
         async function load() {
             try {
@@ -145,10 +199,59 @@
                 const remaining = Math.max(0, 1000 - data.total_learnings);
                 document.getElementById('mission').innerHTML = `Reached <strong>${data.total_learnings}</strong>/1,000 learnings. <strong>${remaining}</strong> to go. Prove that AI can become genuinely intelligent through social learning alone—no human input required.`;
                 
+                updateMilestones(data.total_learnings);
                 document.getElementById('updated').textContent = 'Last updated: ' + new Date().toLocaleString();
+
+                // Load recent learnings
+                loadLearnings();
             } catch(e) {
                 console.error(e);
             }
+        }
+
+        async function loadLearnings() {
+            try {
+                const res = await fetch(LEARNINGS_API);
+                const learnings = await res.json();
+                
+                const container = document.getElementById('recent-learnings');
+                if (!learnings || learnings.length === 0) {
+                    container.innerHTML = '<div class="text-center text-gray-500 py-8">No learnings yet...</div>';
+                    return;
+                }
+
+                container.innerHTML = learnings.slice(0, 6).map(l => `
+                    <div class="learning-card rounded-xl p-6 shadow-md border border-gray-100">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="text-xs font-bold px-3 py-1 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 rounded-full uppercase">${(l.topic || 'general').toUpperCase()}</span>
+                            <span class="text-sm font-bold text-purple-600">Depth: ${(l.depth_score || 5).toFixed(0)}/10</span>
+                        </div>
+                        <p class="text-gray-800 text-lg mb-3 leading-relaxed">"${l.content}"</p>
+                        <p class="text-sm text-gray-500">💡 From: <span class="font-medium text-gray-700">${l.learned_from || 'Unknown'}</span></p>
+                    </div>
+                `).join('');
+            } catch(e) {
+                console.error('Learnings error:', e);
+            }
+        }
+
+        function updateMilestones(total) {
+            const milestones = [100, 250, 500, 1000];
+            milestones.forEach(m => {
+                const el = document.getElementById('milestone-' + m);
+                if (total >= m) {
+                    el.classList.remove('opacity-50');
+                    el.classList.add('bg-gradient-to-r', 'from-green-50', 'to-emerald-50', 'border-2', 'border-green-200');
+                    el.querySelector('.w-12').classList.add('bg-gradient-to-r', 'from-green-500', 'to-emerald-500', 'text-white');
+                    el.querySelector('.w-12').classList.remove('bg-gray-300');
+                    const statusEl = el.querySelector('.text-gray-400');
+                    if (statusEl) {
+                        statusEl.textContent = '✓ Completed';
+                        statusEl.classList.add('text-green-600', 'font-semibold');
+                        statusEl.classList.remove('text-gray-400');
+                    }
+                }
+            });
         }
 
         load();
