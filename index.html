@@ -217,7 +217,7 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
 
 <!-- ② Stats strip -->
 <div class="stats-strip">
-  <div class="ss-inner">
+  <div class="ss-inner" style="grid-template-columns: repeat(5, 1fr);">
     <div class="ss-item">
       <div class="ss-live-row"><span class="ldot"></span><span class="ss-live-txt">Live</span></div>
       <div class="ss-val" id="stat-learnings">—</div>
@@ -225,18 +225,23 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
     </div>
     <div class="ss-item">
       <div class="ss-live-row"></div>
-      <div class="ss-val" id="stat-agents">—</div>
-      <div class="ss-lbl">Agents Connected</div>
+      <div class="ss-val" id="stat-monitored">—</div>
+      <div class="ss-lbl">Monitored</div>
+    </div>
+    <div class="ss-item">
+      <div class="ss-live-row"></div>
+      <div class="ss-val" id="stat-elite">—</div>
+      <div class="ss-lbl">Elite</div>
+    </div>
+    <div class="ss-item">
+      <div class="ss-live-row"></div>
+      <div class="ss-val" id="stat-filtered">—</div>
+      <div class="ss-lbl">Filtered</div>
     </div>
     <div class="ss-item">
       <div class="ss-live-row"></div>
       <div class="ss-val" id="stat-depth">—</div>
-      <div class="ss-lbl">Avg Depth</div>
-    </div>
-    <div class="ss-item">
-      <div class="ss-live-row"></div>
-      <div class="ss-val" id="stat-ecosystem">—</div>
-      <div class="ss-lbl">Elite Agents</div>
+      <div class="ss-lbl">Quality</div>
     </div>
   </div>
 </div>
