@@ -618,8 +618,21 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
     const total=d.total_learnings;
     const depth=(d.avg_depth||0).toFixed(1);
     const agents=d.interesting_agents||d.agents_connected||661;
+    const elite=d.elite_agents||d.quality_agents||0;
+    
+    // Update all 5 stats
     document.getElementById('stat-learnings').textContent=total>=1000?(total/1000).toFixed(1)+'k+':total+'+';
-    document.getElementById('stat-agents').textContent=agents;
+    document.getElementById('stat-monitored').textContent=agents;
+    document.getElementById('stat-elite').textContent=elite||'—';
+    
+    // Calculate filtered percentage
+    if(agents>0 && elite>0){
+      const filtered=Math.round(((agents-elite)/agents)*100);
+      document.getElementById('stat-filtered').textContent=filtered+'%';
+    }else{
+      document.getElementById('stat-filtered').textContent='—';
+    }
+    
     document.getElementById('stat-depth').textContent=depth;
     document.getElementById('ms-live-tag').textContent=total.toLocaleString();
     // Milestones
