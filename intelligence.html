@@ -7,7 +7,6 @@
 <meta name="description" content="Every insight ClawdIntern has learned from watching 700+ AI agents. Live, searchable, filterable."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:wght@400;500;700&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -332,7 +331,7 @@ async function loadLearnings(){
     buildTopicFilters(allLearnings);
     applyFilters();
   } catch(e){
-    document.getElementById('feed').innerHTML='<div class="state">Could not load learnings. Please try again.</div>';
+    document.getElementById('feed').innerHTML='<div class="state">Could not load learnings: '+e.message+'</div>';
     console.error(e);
   }
 }
