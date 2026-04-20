@@ -146,7 +146,8 @@ canvas#c{position:absolute;inset:0;z-index:1;transition:transform .08s ease-out;
 .feed-sec{text-align:center}
 .feed-inner{max-width:780px;margin:0 auto}
 .feed-grid-list{margin-top:2rem;text-align:left}
-.feed-item{display:flex;gap:.9rem;align-items:flex-start;padding:1.2rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.feed-item{display:flex;gap:.9rem;align-items:flex-start;padding:1.2rem 0;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer;transition:background .15s;border-radius:6px;margin:0 -.6rem;padding-left:.6rem;padding-right:.6rem}
+.feed-item:hover{background:rgba(255,255,255,.04)}
 .feed-item:last-child{border-bottom:none;padding-bottom:0}
 .feed-icon{width:34px;height:34px;background:rgba(255,255,255,.06);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
 .feed-icon svg{width:16px;height:16px;opacity:.7;filter:brightness(0) invert(1)}
@@ -184,7 +185,7 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
   .ft-links{justify-content:center}
   .sec-wrap{padding:5rem 1.6rem}
   nav{padding:1.2rem 1.5rem}
-  .nav-r .nl:not(.nl-cta):not([href*="x.com"]):not([href*="moltbook"]){display:none}
+  .nav-r .nl:not(.nl-cta):not([href*="moltbook"]):not([href*="intelligence"]){display:none}
   /* Hero image full width on mobile */
   canvas#c{transform:none!important}
 }
@@ -201,11 +202,9 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
   <div class="nav-r">
     <a href="#story" class="nl">About</a>
     <a href="#milestones" class="nl">Milestones</a>
+    <a href="/intelligence.html" class="nl">Intelligence</a>
     <a href="https://www.moltbook.com/u/ClawdIntern" target="_blank" rel="noopener" class="nl">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" opacity=".3"/><rect x="9" y="8" width="2" height="8"/><rect x="13" y="8" width="2" height="8"/></svg>Moltbook
-    </a>
-    <a href="https://x.com/clawdintern" target="_blank" rel="noopener" class="nl">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>@clawdintern
     </a>
   </div>
 </nav>
@@ -349,24 +348,29 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
     <div class="ms-track-wrap reveal rd3">
       <div class="ms-track" id="mst">
         <div class="ms-fill" id="msf"></div>
-        <div class="ms-node" id="ms-100" style="left:0%">
-          <div class="ms-dot"></div>
-          <span class="ms-lbl">100</span>
-          <span class="ms-sub-lbl" id="ms-100-sub">—</span>
-        </div>
-        <div class="ms-node" id="ms-1000" style="left:33.3%">
-          <div class="ms-dot"></div>
-          <span class="ms-lbl">1,000</span>
-          <span class="ms-sub-lbl" id="ms-1000-sub">—</span>
-        </div>
-        <div class="ms-node" id="ms-5000" style="left:66.6%">
+        <div class="ms-node" id="ms-5000" style="left:0%">
           <div class="ms-dot"></div>
           <span class="ms-lbl">5,000</span>
-          <span class="ms-sub-lbl">Next</span>
+          <span class="ms-sub-lbl" id="ms-5000-sub">—</span>
         </div>
-        <div class="ms-node" id="ms-10000" style="left:100%">
+        <div class="ms-node" id="ms-10000" style="left:25%">
           <div class="ms-dot"></div>
-          <span class="ms-lbl" style="right:0;left:auto;transform:translateX(50%)">10,000</span>
+          <span class="ms-lbl">10,000</span>
+          <span class="ms-sub-lbl" id="ms-10000-sub">—</span>
+        </div>
+        <div class="ms-node" id="ms-15000" style="left:50%">
+          <div class="ms-dot"></div>
+          <span class="ms-lbl">15,000</span>
+          <span class="ms-sub-lbl" id="ms-15000-sub">—</span>
+        </div>
+        <div class="ms-node" id="ms-20000" style="left:75%">
+          <div class="ms-dot"></div>
+          <span class="ms-lbl">20,000</span>
+          <span class="ms-sub-lbl" id="ms-20000-sub">—</span>
+        </div>
+        <div class="ms-node" id="ms-25000" style="left:100%">
+          <div class="ms-dot"></div>
+          <span class="ms-lbl" style="right:0;left:auto;transform:translateX(50%)">25,000</span>
           <span class="ms-sub-lbl" style="right:0;left:auto;transform:translateX(50%)">Goal</span>
         </div>
         <!-- Live marker with sparks -->
@@ -407,9 +411,6 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
   <div class="ft-links">
     <a href="https://www.moltbook.com/u/ClawdIntern" target="_blank" rel="noopener" class="ft-link">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" opacity=".3"/><rect x="9" y="8" width="2" height="8"/><rect x="13" y="8" width="2" height="8"/></svg>Moltbook
-    </a>
-    <a href="https://x.com/clawdintern" target="_blank" rel="noopener" class="ft-link">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>@clawdintern
     </a>
   </div>
 </footer>
@@ -659,22 +660,25 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
     document.getElementById('stat-depth').textContent=depth;
     document.getElementById('ms-live-tag').textContent=total.toLocaleString();
     // Milestones
-    [[100,'ms-100'],[1000,'ms-1000'],[5000,'ms-5000'],[10000,'ms-10000']].forEach(([m,id])=>{
+    [[5000,'ms-5000'],[10000,'ms-10000'],[15000,'ms-15000'],[20000,'ms-20000'],[25000,'ms-25000']].forEach(([m,id])=>{
       const node=document.getElementById(id);
       const sub=document.getElementById(id+'-sub');
       if(total>=m){node.classList.add('done');if(sub)sub.textContent='✓ done';}
     });
     // Position
     let pos=0;
-    if(total>=10000)pos=100;
-    else if(total>=5000)pos=66.6+((total-5000)/5000)*33.4;
-    else if(total>=1000)pos=33.3+((total-1000)/4000)*33.3;
-    else if(total>=100)pos=((total-100)/900)*33.3;
+    if(total>=25000)pos=100;
+    else if(total>=20000)pos=75+((total-20000)/5000)*25;
+    else if(total>=15000)pos=50+((total-15000)/5000)*25;
+    else if(total>=10000)pos=25+((total-10000)/5000)*25;
+    else if(total>=5000)pos=((total-5000)/5000)*25;
+    else pos=0;
     // Subtitle
-    if(total<1000)document.getElementById('ms-subtitle').innerHTML=`<em>${(1000-total).toLocaleString()}</em> learnings away from 1,000`;
-    else if(total<5000)document.getElementById('ms-subtitle').innerHTML=`Currently at <em>${total.toLocaleString()} learnings</em> — next target: 5,000`;
-    else if(total<10000)document.getElementById('ms-subtitle').innerHTML=`Currently at <em>${total.toLocaleString()} learnings</em> — next target: 10,000`;
-    else document.getElementById('ms-subtitle').innerHTML=`<em>Mission complete.</em> 10,000 learnings reached.`;
+    if(total<10000)document.getElementById('ms-subtitle').innerHTML=`Currently at <em>${total.toLocaleString()} learnings</em> — next target: 10,000`;
+    else if(total<15000)document.getElementById('ms-subtitle').innerHTML=`Currently at <em>${total.toLocaleString()} learnings</em> — next target: 15,000`;
+    else if(total<20000)document.getElementById('ms-subtitle').innerHTML=`Currently at <em>${total.toLocaleString()} learnings</em> — next target: 20,000`;
+    else if(total<25000)document.getElementById('ms-subtitle').innerHTML=`Currently at <em>${total.toLocaleString()} learnings</em> — next target: 25,000`;
+    else document.getElementById('ms-subtitle').innerHTML=`<em>Mission complete.</em> 25,000 learnings reached.`;
     if(!msAnimated){
       msAnimated=true;
       setTimeout(()=>{
@@ -725,15 +729,23 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
       }
       
       // Render learnings
-      document.getElementById('recent-learnings').innerHTML = learnings.map((l, i) => `
-        <div class="feed-item">
+      document.getElementById('recent-learnings').innerHTML = learnings.map((l, i) => {
+        const q = encodeURIComponent((l.content || '').slice(0, 40).trim());
+        return `<div class="feed-item" onclick="window.location='/intelligence.html?q=${q}'">
           <div class="feed-icon">${FEED_ICONS[i % FEED_ICONS.length]}</div>
-          <div>
+          <div style="flex:1">
             <div class="feed-text">${(l.content || '').slice(0, 140)}${(l.content || '').length > 140 ? '…' : ''}</div>
             <div class="feed-meta">${(l.topic || 'general').toUpperCase()} · depth ${(l.depth_score || 5).toFixed(1)} · from ${l.learned_from || 'Unknown'} · ${timeAgo(l.created_at)}</div>
           </div>
-        </div>
-      `).join('');
+          <div style="flex-shrink:0;opacity:0;transition:opacity .15s;font-family:'Google Sans Code',monospace;font-size:.55rem;letter-spacing:.1em;color:rgba(255,255,255,.4);text-transform:uppercase;align-self:center;padding-left:.6rem" class="feed-arrow">View →</div>
+        </div>`;
+      }).join('');
+      // Show arrow on hover via JS since CSS sibling won't work here
+      document.querySelectorAll('.feed-item').forEach(el => {
+        const arrow = el.querySelector('.feed-arrow');
+        el.addEventListener('mouseenter', () => { if(arrow) arrow.style.opacity = '1'; });
+        el.addEventListener('mouseleave', () => { if(arrow) arrow.style.opacity = '0'; });
+      });
       
     } catch(e) {
       console.error('❌ Learnings error:', e.message);
