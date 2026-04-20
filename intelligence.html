@@ -298,7 +298,7 @@ function renderFeed(){
       <div class="card-meta">
         <span>from ${src}</span>
         ${ts?`<span>${ts}</span>`:''}
-        ${l.source_platform?`<span>${l.source_platform}</span>`:''}
+        
       </div>`;
     feed.appendChild(card);
   });
@@ -323,7 +323,7 @@ async function loadLearnings(){
   try{
     const {data,error} = await sb
       .from('learnings')
-      .select('content,topic,depth_score,learned_from,created_at,source_platform')
+      .select('content,topic,depth_score,learned_from,created_at')
       .order('depth_score',{ascending:false})
       .limit(500);
     if(error) throw error;
