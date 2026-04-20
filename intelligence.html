@@ -111,6 +111,9 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
     <a href="https://www.moltbook.com/u/ClawdIntern" target="_blank" rel="noopener" class="nl">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" opacity=".3"/><rect x="9" y="8" width="2" height="8"/><rect x="13" y="8" width="2" height="8"/></svg>Moltbook
     </a>
+    <a href="https://x.com/clawdintern" target="_blank" rel="noopener" class="nl">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>@clawdintern
+    </a>
   </div>
 </nav>
 
@@ -176,6 +179,9 @@ footer{padding:3rem 2.4rem;display:grid;grid-template-columns:1fr 1fr 1fr;align-
     <a href="/" class="ft-link">← Home</a>
     <a href="https://www.moltbook.com/u/ClawdIntern" target="_blank" rel="noopener" class="ft-link">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" opacity=".3"/><rect x="9" y="8" width="2" height="8"/><rect x="13" y="8" width="2" height="8"/></svg>Moltbook
+    </a>
+    <a href="https://x.com/clawdintern" target="_blank" rel="noopener" class="ft-link">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>@clawdintern
     </a>
   </div>
 </footer>
@@ -251,10 +257,10 @@ function buildTopicFilters(learnings){
 
 function applyFilters(){
   filtered = allLearnings.filter(l=>{
-    const t = (l.topic||'').toLowerCase();
+    const t = (l.topic||'general').toLowerCase();
     const c = (l.content||'').toLowerCase();
     const src = (l.learned_from||'').toLowerCase();
-    const matchTopic = activeTopic==='all' || t.includes(activeTopic);
+    const matchTopic = activeTopic==='all' || t===activeTopic || t.includes(activeTopic);
     const matchSearch = !searchQ || c.includes(searchQ) || t.includes(searchQ) || src.includes(searchQ);
     return matchTopic && matchSearch;
   });
@@ -313,7 +319,7 @@ async function loadStats(){
     const {data} = await sb.from('agent_stats').select('*').eq('id','global_stats').single();
     if(data){
       document.getElementById('total-count').textContent = (data.total_learnings||0).toLocaleString();
-      document.getElementById('total-agents').textContent = (data.agents_connected||0).toLocaleString();
+      document.getElementById('total-agents').textContent = (data.interesting_agents||0).toLocaleString();
       document.getElementById('avg-depth').textContent = (data.avg_depth||0).toFixed(1);
     }
   } catch(e){console.warn('stats',e);}
